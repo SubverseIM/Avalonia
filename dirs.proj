@@ -19,10 +19,16 @@
     <ProjectReference Remove="samples/WinUIEmbedSample/*.csproj" Condition="'$(Platform)' == '' Or '$(Platform)' == 'AnyCPU'" />
   </ItemGroup>
 
-  <ItemGroup Condition="!$([MSBuild]::IsOsPlatform('Windows'))">
+  <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Linux'))">
     <!-- Build mobile backends only on Windows, where we have installed android workload -->
-    <ProjectReference Remove="src/Android/**/*.*proj" />
     <ProjectReference Remove="src/iOS/**/*.*proj" />
+    <ProjectReference Remove="src/Windows/Avalonia.WinUI/**/*.*proj" />
+    <ProjectReference Remove="samples/*.WinUI/*.csproj" />
+    <ProjectReference Remove="samples/WinUIEmbedSample/*.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Osx'))">
+    <ProjectReference Remove="src/Android/**/*.*proj" />
     <ProjectReference Remove="src/Windows/Avalonia.WinUI/**/*.*proj" />
     <ProjectReference Remove="samples/*.WinUI/*.csproj" />
     <ProjectReference Remove="samples/WinUIEmbedSample/*.csproj" />
